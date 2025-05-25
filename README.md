@@ -13,3 +13,5 @@ Copies artifact from builder stage to the final stage.
 Creates user myuser and group mygroup, assigns myuser to mygroup. Assigns 755 permissions to app folder.
 Switches to myuser for security purposes - don't want to leave root in use.
 Runs ./app when container starts.
+
+GitHub Automation workflow pushes newly created build to Docker Hub repository, updating with 2 tags :latest, and :github.run_id
