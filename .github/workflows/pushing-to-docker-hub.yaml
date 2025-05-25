@@ -28,7 +28,7 @@ jobs:
                 uses: docker/build-push-action@v6
                 with:
                     push: true
-                    tags: ${{ secrets.DOCKERHUB_USERNAME }}/secured-go:${{ github.run_id }}
+                    tags: ${{ secrets.DOCKERHUB_USERNAME }}/secured-go:${{ github.run_id }},${{ secrets.DOCKERHUB_USERNAME }}/secured-go:latest
                     cache-from: type=gha
                     cache-to: type=gha,mode=max
                     platforms: linux/amd64, linux/arm64
