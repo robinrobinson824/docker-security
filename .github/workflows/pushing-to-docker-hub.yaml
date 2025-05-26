@@ -1,4 +1,4 @@
-name: Secured Docker Go Calc
+name: Secured Docker Go Calc v1
 
 on: workflow_dispatch
 
