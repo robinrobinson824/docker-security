@@ -18,7 +18,7 @@ var tpl = `
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Star Wars Calculator</title>
+	<title>Star Wars Web Calculator</title>
 	<style>
 		body {
 			background-color: #1a1a1a;
