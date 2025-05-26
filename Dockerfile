@@ -2,38 +2,31 @@
 FROM golang:1.22-alpine AS builder
 WORKDIR /app
 
-COPY app.go .
+COPY calc.go .
 RUN \
     apk update \
-    && go mod init app \
+    && go mod init calc \
     && go mod tidy
-# go mod init app means initialize a new module named app
-# go mod tidy means download the dependencies and clean up the go.mod and go.sum files
 
-    # go build -o app means build the app.go file and output the binary to app
 RUN \
-    go build -o app app.go
+    go build -o calc calc.go
 
 # This is the final image
 FROM alpine
 
 WORKDIR /app
-COPY --from=builder /app/app .
-# /app/app . means copy the app binary from the builder stage to the current working directory
-# --from=builder means copy from the builder stage
-# --chown=app:app means change the owner of the file to app:app
+COPY --from=builder /app/calc .
 
 # Create non-root user and group
 RUN \ 
     addgroup -g 1000 mygroup \
     && adduser -D -u 1000 -G mygroup myuser \
-    && chown myuser:mygroup /app/app \
-    && chmod 755 /app/app
-# addgroup -g 1000 mygroup means add a group with gid 1000
-# adduser -D -u 1000 -G mygroup myuser means add a user with uid 1000 and gid 1000 to the group mygroup
-# -D means add a system user
+    && chown myuser:mygroup /app/calc \
+    && chmod 755 /app/calc
 
+# Set the user to run the application
 USER myuser
+
 EXPOSE 8080
-#USER app
-CMD ["./app"]
+
+CMD ["./calc"]
