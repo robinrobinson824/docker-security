@@ -1,28 +1,21 @@
 package main
 
 import (
-	"fmt"
+    "fmt"
+    "net/http"
 )
 
+func handler(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprint(w, `<html>
+        <head><title>Hello</title></head>
+        <body style="background-color: purple; display: flex; align-items: center; justify-content: center; height: 100vh;">
+            <h1 style="color: white;">Hello, World!</h1>
+        </body>
+    </html>`)
+}
+
 func main() {
-	var operator string
-	fmt.Println("Enter operator: +, -, *, /")
-	fmt.Scan(&operator)
-
-	var num1, num2 float64
-	fmt.Println("Enter two numbers:")
-	fmt.Scan(&num1, &num2)
-
-	switch operator {
-	case "+":
-		fmt.Println(num1 + num2)
-	case "-":
-		fmt.Println(num1 - num2)
-	case "*":
-		fmt.Println(num1 * num2)
-	case "/":
-		fmt.Println(num1 / num2)
-	default:
-		fmt.Println("Invalid operator")
-	}
+    http.HandleFunc("/", handler)
+    fmt.Println("Server running on http://localhost:8080")
+    http.ListenAndServe(":8080", nil)
 }
