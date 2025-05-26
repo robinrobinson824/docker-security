@@ -25,7 +25,6 @@ spec:
       labels:
         app: swcalc
         # does this label need to match the label in the metadata section?
-        #
     spec:
       containers:
         -
