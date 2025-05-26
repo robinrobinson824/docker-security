@@ -6,7 +6,6 @@ metadata:
   name: swcalc-deployment
   labels:
     app: swcalc
-    version: v1
 spec:
   # the NodePort is a type of service that exposes the application on a port on each node
   # in the cluster, allowing external access to the application
