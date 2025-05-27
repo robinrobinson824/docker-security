@@ -6,7 +6,6 @@ metadata:
   labels:
     app: swcalc
 spec:
-  type: NodePort
   replicas: 3
   selector:
     matchLabels:
@@ -18,7 +17,7 @@ spec:
     spec:
       containers:
         - name: swcalc
-          image: ${{ secrets.DOCKERHUB_USERNAME }}/secured-go:latest
+          image: robinrobinson/secured-go:latest
           ports:
             - containerPort: 8080
           resources:

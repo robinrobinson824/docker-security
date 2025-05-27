@@ -5,7 +5,7 @@ kind: Service
 metadata:
   name: swcalc-service
   labels:
-    app: swcalc-clusterip
+    app: swcalc
 spec:
   type: ClusterIP
   selector:
