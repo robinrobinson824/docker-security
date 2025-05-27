@@ -18,6 +18,7 @@ spec:
       containers:
         - name: swcalc
           image: robinrobinson/secured-go:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
           resources:

@@ -1,9 +1,6 @@
 name: Secured Docker Go Calc v1
 
 on: 
-    push:
-        branches:
-            - main
     workflow_dispatch:
         
 jobs:

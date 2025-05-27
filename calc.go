@@ -8,6 +8,7 @@ import (
 )
 
 type CalcData struct {
+	IP        string
 	Result    string
 	First     string
 	Second    string
@@ -55,6 +56,7 @@ var tpl = `
 	</style>
 </head>
 <body>
+	<h3>Local IP: {{.IP}}</h3>
 	<h1>Star Wars Calculator</h1>
 	<form method="POST">
 		<input type="text" name="first" placeholder="First" value="{{.First}}">
@@ -73,8 +75,25 @@ var tpl = `
 </html>
 `
 
+func getLocalIP() string {
+	addrs, err := net.InterfaceAddrs()
+	if err != nil {
+		return "Unknown"
+	}
+	for _, addr := range addrs {
+		if ipnet, ok := addr.(*net.IPNet); ok && !ipnet.IP.IsLoopback() {
+			if ipnet.IP.To4() != nil {
+				return ipnet.IP.String()
+			}
+		}
+	}
+	return "Unknown"
+}
+
 func handler(w http.ResponseWriter, r *http.Request) {
-	data := CalcData{}
+	data := CalcData{
+		IP: getLocalIP(),
+	}
 	if r.Method == http.MethodPost {
 		r.ParseForm()
 		data.First = r.FormValue("first")
