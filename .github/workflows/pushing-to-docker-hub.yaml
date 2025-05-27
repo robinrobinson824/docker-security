@@ -32,7 +32,7 @@ jobs:
                     outputs: type=registry
                     tags: |
                         ${{ secrets.DOCKERHUB_USERNAME }}/secured-go:latest
-                        ${{ secrets.DOCKERHUB_USERNAME }}/secured-go:calcV1
+                        ${{ secrets.DOCKERHUB_USERNAME }}/secured-go:calcV2
                     cache-from: type=gha
                     cache-to: type=gha,mode=max
                     platforms: linux/amd64,linux/arm64
