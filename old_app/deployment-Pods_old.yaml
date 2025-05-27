@@ -1,0 +1,41 @@
+---
+apiVersion: apps/v1
+# Deployment for Secured Go Calc v1
+kind: Deployment
+metadata: 
+  name: swcalc-deployment
+  labels:
+    app: swcalc
+spec:
+  # the NodePort is a type of service that exposes the application on a port on each node
+  # in the cluster, allowing external access to the application
+  type: NodePort
+  replicas: 3
+
+  # the selector must match the labels of the pod template
+  selector:
+    matchLabels:
+      app: swcalc
+  
+  # template means that this is a pod template
+  template:
+    metadata:
+    # labels are used to identify the pods
+      labels:
+        app: swcalc
+        # does this label need to match the label in the metadata section?
+    spec:
+      containers:
+        -
+          name: swcalc
+          image: ${{ secrets.DOCKERHUB_USERNAME }}/secured-go:latest
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "100m"
+            limits:
+              memory: "128Mi"
+              cpu: "200m"
+...
