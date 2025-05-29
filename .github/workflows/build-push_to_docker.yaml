@@ -1,4 +1,4 @@
-name: Secured Docker Go Calc v3
+name: Secured Docker Go Calc v4
 
 on: 
     workflow_dispatch:
@@ -33,7 +33,7 @@ jobs:
                 run: |
                     docker buildx build \
                         --load \
-                        --tag ${{ secrets.DOCKERHUB_USERNAME }}/secured-go:calcV3 \
+                        --tag ${{ secrets.DOCKERHUB_USERNAME }}/secured-go:calcV4 \
                         --tag ${{ secrets.DOCKERHUB_USERNAME }}/secured-go:latest \
                         --cache-from=type=gha \
                         --cache-to=type=gha,mode=max \
@@ -41,27 +41,8 @@ jobs:
                         .
                 # --load tells Builx to load the image into the local Docker deamon after building it.
             
-            - # Install Snyk CLI
-                name: Install Snyk CLI
-                run: |
-                    npm install -g snyk
-                
-            - # This step runs a security scan on the container using Snyk. It scans for vulnerabilities and outputs the results in SARIF format.
-                name: Security scan with Snyk
-                uses: snyk/actions/docker@master
-                id: snyk-docker-scan
-                continue-on-error: true
-                env:
-                    SNYK_TOKEN: ${{ secrets.SNYK_PAT }}
-                with:
-                    image: ${{ secrets.DOCKERHUB_USERNAME }}/secured-go:calcV3
-                    args: |
-                        --severity-threshold=high
-                        --sarif-file-output=./security/snyk-report.sarif
-                    sarif: true
-
             - # This step builds and pushes the Docker image to Docker Hub. It uses the docker/build-push-action to build the image, push it to the registry, and cache layers for faster builds.
                 name: Push Docker image to Docker Hub
                 run: |
-                    docker push ${{ secrets.DOCKERHUB_USERNAME }}/secured-go:calcV3
+                    docker push ${{ secrets.DOCKERHUB_USERNAME }}/secured-go:calcV4
                     docker push ${{ secrets.DOCKERHUB_USERNAME }}/secured-go:latest

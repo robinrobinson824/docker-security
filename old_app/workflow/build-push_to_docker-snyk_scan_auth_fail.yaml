@@ -47,11 +47,12 @@ jobs:
                     npm install -g snyk
                 
             - # This step runs a security scan on the container using Snyk. It scans for vulnerabilities and outputs the results in SARIF format.
+            # Snyk requires Enterprise account to use API
                 name: Security scan with Snyk
                 id: snyk-docker-scan
                 continue-on-error: true
                 env:
-                    SNYK_TOKEN: ${{ secrets.SNYK_PAT }}
+                    SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
                 run: |
                     snyk container test ${{ secrets.DOCKERHUB_USERNAME }}/secured-go:calcV3 \
                     --severity-threshold=high \
