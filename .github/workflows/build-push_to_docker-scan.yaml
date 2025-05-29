@@ -37,7 +37,8 @@ jobs:
                         --load \
                         --tag ${{ secrets.DOCKERHUB_USERNAME }}/secured-go:calcV3 \
                         --tag ${{ secrets.DOCKERHUB_USERNAME }}/secured-go:latest \
-                        --cache-from=typegha,mode=max \
+                        --cache-from=type=gha \
+                        --cache-to=type=gha,mode=max \
                         --platform=linux/arm64,linux/amd64 \
                         .
                 # --load tells Builx to load the image into the local Docker deamon after building it.
