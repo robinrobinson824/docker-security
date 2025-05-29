@@ -48,6 +48,7 @@ jobs:
                 with:
                     image: ${{ secrets.DOCKERHUB_USERNAME }}/secured-go:calcV3
                     args: |
-                        --file ./Dockerfile --severity-threshold=high
+                        --file=./Dockerfile 
+                        --severity-threshold=high
                         --sarif-file-output=./security/snyk-report.snyk.sarif
                     sarif: true
