@@ -39,7 +39,7 @@ jobs:
                         --tag ${{ secrets.DOCKERHUB_USERNAME }}/secured-go:latest \
                         --cache-from=type=gha \
                         --cache-to=type=gha,mode=max \
-                        --platform=linux/arm64,linux/amd64 \
+                        --platform=linux/arm64 \
                         .
                 # --load tells Builx to load the image into the local Docker deamon after building it.
 
